@@ -7,8 +7,8 @@ from resnet15 import ResNet15
 import pandas as pd
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-csv_file = 'face-check/data/labels.csv'
-root_dir = 'face-check/data/casia_mfsd'
+csv_file = '/kaggle/input/face-check/data/labels.csv'
+root_dir = '/kaggle/input/face-check/data/casia_mfsd'
 
 df = pd.read_csv(csv_file)
 labels = [1 if l != 'real' else 0 for l in df['label']]
