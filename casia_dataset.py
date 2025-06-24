@@ -22,14 +22,14 @@ class CasiaDataset(Dataset):
 
     def __getitem__(self, idx):
         row = self.data.iloc[idx]
-        vid_path = os.path.join(self.root_dir, row['video_path'])
-        cap = cv2.VideoCapture(vid_path)
-        ret, frame = cap.read()
-        cap.release()
+        img_path = os.path.join(self.root_dir, row['video_path'])
+        img = cv2.imread(img_path)
+        if img is None:
+            img = np.zeros((120, 120, 3), dtype=np.uint8)
+        else:
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         label = 1 if row['label'] != 'real' else 0  # spoof:1, real:0
-        if not ret:
-            frame = np.zeros((120, 120, 3), dtype=np.uint8)
-        img = self.transform(frame)
+        img = self.transform(img)
         return img, label
 
 class BalancedSampler(Sampler):
