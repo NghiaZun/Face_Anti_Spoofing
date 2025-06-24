@@ -17,5 +17,5 @@ with open(output_csv, 'w', newline='') as csvfile:
                 label = 'real'
             else:
                 label = 'spoof'
-            rel_path = os.path.join('synthetic', folder, fname)
+            rel_path = f"synthetic/{folder}/{fname}"
             writer.writerow([rel_path, label])
